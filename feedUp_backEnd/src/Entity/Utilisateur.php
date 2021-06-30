@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,28 @@ class Utilisateur
      * @ORM\Column(type="string", length=255)
      */
     private $utype;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Evenement::class, inversedBy="utilisateurs")
+     */
+    private $relation;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Groupe::class, inversedBy="utilisateurs")
+     */
+    private $groupe;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="utilisateur", orphanRemoval=true)
+     */
+    private $experiences;
+
+    public function __construct()
+    {
+        $this->relation = new ArrayCollection();
+        $this->groupe = new ArrayCollection();
+        $this->experiences = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +161,84 @@ class Utilisateur
     public function setUtype(string $utype): self
     {
         $this->utype = $utype;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getRelation(): Collection
+    {
+        return $this->relation;
+    }
+
+    public function addRelation(Evenement $relation): self
+    {
+        if (!$this->relation->contains($relation)) {
+            $this->relation[] = $relation;
+        }
+
+        return $this;
+    }
+
+    public function removeRelation(Evenement $relation): self
+    {
+        $this->relation->removeElement($relation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Groupe[]
+     */
+    public function getGroupe(): Collection
+    {
+        return $this->groupe;
+    }
+
+    public function addGroupe(Groupe $groupe): self
+    {
+        if (!$this->groupe->contains($groupe)) {
+            $this->groupe[] = $groupe;
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupe $groupe): self
+    {
+        $this->groupe->removeElement($groupe);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Experience[]
+     */
+    public function getExperiences(): Collection
+    {
+        return $this->experiences;
+    }
+
+    public function addExperience(Experience $experience): self
+    {
+        if (!$this->experiences->contains($experience)) {
+            $this->experiences[] = $experience;
+            $experience->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(Experience $experience): self
+    {
+        if ($this->experiences->removeElement($experience)) {
+            // set the owning side to null (unless already changed)
+            if ($experience->getUtilisateur() === $this) {
+                $experience->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }

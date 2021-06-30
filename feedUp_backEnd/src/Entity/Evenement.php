@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,22 @@ class Evenement
      * @ORM\Column(type="integer")
      */
     private $enombre;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Utilisateur::class, mappedBy="relation")
+     */
+    private $utilisateurs;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="evenement", orphanRemoval=true)
+     */
+    private $commentaires;
+
+    public function __construct()
+    {
+        $this->utilisateurs = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -142,6 +160,63 @@ class Evenement
     public function setEnombre(int $enombre): self
     {
         $this->enombre = $enombre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Utilisateur[]
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): self
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs[] = $utilisateur;
+            $utilisateur->addRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): self
+    {
+        if ($this->utilisateurs->removeElement($utilisateur)) {
+            $utilisateur->removeRelation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaire[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getEvenement() === $this) {
+                $commentaire->setEvenement(null);
+            }
+        }
 
         return $this;
     }

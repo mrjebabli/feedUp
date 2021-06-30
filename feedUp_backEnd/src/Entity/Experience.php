@@ -32,6 +32,12 @@ class Experience
      */
     private $exContenu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="experiences")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $utilisateur;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Experience
     public function setExContenu(string $exContenu): self
     {
         $this->exContenu = $exContenu;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?Utilisateur
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateur $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

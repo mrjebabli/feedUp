@@ -32,6 +32,13 @@ class Commentaire
      */
     private $cContenu;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="commentaires")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $evenement;
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -72,4 +79,18 @@ class Commentaire
 
         return $this;
     }
+
+    public function getEvenement(): ?Evenement
+    {
+        return $this->evenement;
+    }
+
+    public function setEvenement(?Evenement $evenement): self
+    {
+        $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    
 }

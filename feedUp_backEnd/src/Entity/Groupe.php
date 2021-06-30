@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GroupeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,16 @@ class Groupe
      * @ORM\Column(type="integer", nullable=true)
      */
     private $gnombre;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Utilisateur::class, mappedBy="groupe")
+     */
+    private $utilisateurs;
+
+    public function __construct()
+    {
+        $this->utilisateurs = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +98,33 @@ class Groupe
     public function setGnombre(?int $gnombre): self
     {
         $this->gnombre = $gnombre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Utilisateur[]
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): self
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs[] = $utilisateur;
+            $utilisateur->addGroupe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): self
+    {
+        if ($this->utilisateurs->removeElement($utilisateur)) {
+            $utilisateur->removeGroupe($this);
+        }
 
         return $this;
     }
