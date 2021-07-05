@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a432440b44342b16235b234b93a62f2a",
+    "content-hash": "2f3bb76b137c150a9f23460ffac7e123",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1863,6 +1863,32 @@
                 "source": "https://github.com/sensiolabs/SensioFrameworkExtraBundle/tree/v6.1.5"
             },
             "time": "2021-05-31T10:40:46+00:00"
+        },
+        {
+            "name": "symfony/apache-pack",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/apache-pack.git",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/apache-pack/zipball/3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "reference": "3aa5818d73ad2551281fc58a75afd9ca82622e6c",
+                "shasum": ""
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for Apache support in Symfony",
+            "support": {
+                "issues": "https://github.com/symfony/apache-pack/issues",
+                "source": "https://github.com/symfony/apache-pack/tree/master"
+            },
+            "time": "2017-12-12T01:46:35+00:00"
         },
         {
             "name": "symfony/cache",
@@ -4218,16 +4244,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.4.25",
+            "version": "v4.4.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "cd61e6dd273975c6625316de9d141ebd197f93c9"
+                "reference": "7e812c84c3f2dba173d311de6e510edf701685a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/cd61e6dd273975c6625316de9d141ebd197f93c9",
-                "reference": "cd61e6dd273975c6625316de9d141ebd197f93c9",
+                "url": "https://api.github.com/repos/symfony/process/zipball/7e812c84c3f2dba173d311de6e510edf701685a8",
+                "reference": "7e812c84c3f2dba173d311de6e510edf701685a8",
                 "shasum": ""
             },
             "require": {
@@ -4259,7 +4285,7 @@
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/v4.4.25"
+                "source": "https://github.com/symfony/process/tree/v4.4.26"
             },
             "funding": [
                 {
@@ -4275,7 +4301,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T11:20:16+00:00"
+            "time": "2021-06-09T14:57:04+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -4908,16 +4934,16 @@
         },
         {
             "name": "symfony/web-server-bundle",
-            "version": "v4.4.25",
+            "version": "v4.4.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/web-server-bundle.git",
-                "reference": "2f58db9a6b2e173c13b2519d804f694d23247b8c"
+                "reference": "7aaea9666309f7d6375d2f07ef53c4777f16950c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/2f58db9a6b2e173c13b2519d804f694d23247b8c",
-                "reference": "2f58db9a6b2e173c13b2519d804f694d23247b8c",
+                "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/7aaea9666309f7d6375d2f07ef53c4777f16950c",
+                "reference": "7aaea9666309f7d6375d2f07ef53c4777f16950c",
                 "shasum": ""
             },
             "require": {
@@ -4959,7 +4985,7 @@
             "description": "Provides commands for running applications using the PHP built-in web server",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/web-server-bundle/tree/v4.4.25"
+                "source": "https://github.com/symfony/web-server-bundle/tree/v4.4.26"
             },
             "funding": [
                 {
@@ -4975,7 +5001,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T17:39:37+00:00"
+            "time": "2021-06-08T05:59:26+00:00"
         },
         {
             "name": "symfony/yaml",

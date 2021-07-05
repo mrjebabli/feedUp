@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentaireRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,29 +15,40 @@ class Commentaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @groups ("comment:read")
+     * @groups ("event:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @groups ("comment:read")
+     * @groups ("event:read")
      */
     private $cid;
 
     /**
      * @ORM\Column(type="datetime")
+     * @groups ("comment:read")
+     * @groups ("event:read")
      */
     private $cDatePublication;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @groups ("comment:read")
+     * @groups ("event:read")
      */
     private $cContenu;
+
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="commentaires")
      * @ORM\JoinColumn(nullable=false)
-     */
-    private $evenement;
+     * @groups ("event:read")
+     */  
+     private $evenement;
 
     
     public function getId(): ?int
