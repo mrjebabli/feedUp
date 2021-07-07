@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,48 +13,66 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Evenement
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $eid;
 
     /**
      * @ORM\Column(type="string", length=255)
-     */
+     * @groups ("event:read")
+     * @groups ("comment:read")
+    */
     private $enom;
 
     /**
      * @ORM\Column(type="datetime")
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $edate;
 
     /**
-     * @ORM\Column(type="dateinterval")
+     * @ORM\Column(type="datetime")
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $eduree;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $edetails;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $elocation;
 
     /**
      * @ORM\Column(type="integer")
+     * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $enombre;
 
+    
     /**
      * @ORM\ManyToMany(targetEntity=Utilisateur::class, mappedBy="relation")
      */
@@ -61,6 +80,7 @@ class Evenement
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="evenement", orphanRemoval=true)
+     * 
      */
     private $commentaires;
 
@@ -68,13 +88,9 @@ class Evenement
     {
         $this->utilisateurs = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->edate=new \DateTime();
     }
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-   
-
+ 
     public function getId(): ?int
     {
         return $this->id;
@@ -104,24 +120,24 @@ class Evenement
         return $this;
     }
 
-    public function getEdate(): ?\DateTimeInterface
+    public function getEdate(): ?\Datetime
     {
         return $this->edate;
     }
 
-    public function setEdate(\DateTimeInterface $edate): self
+    public function setEdate(\Datetime  $edate): self
     {
         $this->edate = $edate;
 
         return $this;
     }
 
-    public function getEduree(): ?\DateInterval
+    public function getEduree(): ?\Datetime
     {
         return $this->eduree;
     }
 
-    public function setEduree(\DateInterval $eduree): self
+    public function setEduree(\Datetime $eduree): self
     {
         $this->eduree = $eduree;
 

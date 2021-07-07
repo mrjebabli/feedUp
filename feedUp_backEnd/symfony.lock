@@ -112,6 +112,18 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/apache-pack": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "71599f5b0fdeeeec0fb90e9b17c85e6f5e1350c1"
+        },
+        "files": [
+            "./public/.htaccess"
+        ]
+    },
     "symfony/cache": {
         "version": "v4.4.25"
     },
@@ -246,9 +258,12 @@
         "version": "v1.23.0"
     },
     "symfony/process": {
-        "version": "v4.4.25"
+        "version": "v4.4.26"
     },
     "symfony/property-access": {
+        "version": "v4.4.25"
+    },
+    "symfony/property-info": {
         "version": "v4.4.25"
     },
     "symfony/proxy-manager-bridge": {
