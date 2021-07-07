@@ -88,38 +88,6 @@ class EvenementController extends AbstractController
        return $response;
    }
 
-/**
-* @Route("/evenement/update/{id}", name="updateEvent", methods={"put"})
-*
-*/   
-
-/*
-public  function updateEvent(Request $request, $id)
-{
-    $data = $request->getContent();
-    $encoders = array(new JsonEncoder());
-    $serializer = new Serializer([new ObjectNormalizer()], $encoders);
-    //dd($serializer);
-    $e1 = $serializer->deserialize($data, 'App\Entity\Evenement', 'json');
-    dd($e1);
-    $e0 = $this->em->getRepository(Evenement::class)->find($id);
-    $e0 = $e1;
-    //dd($e0);
-    $this->em->flush();
-    $response = new Response('', Response::HTTP_OK);
-    //Allow all websites
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-    // You can set the allowed methods too, if you want
-    $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
-    //dd($response);
-    return $response;
-    
-
-} 
-
-
-*/
-
    
    /** 
     * @Route("/evenement/update/{id}", name="editEvent", methods={"PUT"})

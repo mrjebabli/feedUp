@@ -2,18 +2,28 @@
 
 namespace App\Controller;
 
-use App\Repository\CommentaireRepository;
 use DateTime;
+use App\Entity\Commentaire;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CommentaireRepository;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
+use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+
+
 
 class CommentaireController extends AbstractController
 {
@@ -63,7 +73,7 @@ class CommentaireController extends AbstractController
 
 
     /**
-    * @Route("/delComment", name="delComment", methods={"DELETE"})
+    * @Route("/commentaire/{id}/delete", name="delComment", methods={"delete"})
     * @return Response
     */
     public function deleteComment($id): Response
@@ -82,31 +92,24 @@ class CommentaireController extends AbstractController
    }
 
 
-/**
-* @Route("/editComment", name="editComment", methods={"PUT"})
-*
-*/   
 
-public  function updateComment(Request $request, $id)
-{
-    $data = $request->getContent();
-    $encoders = array(new JsonEncoder());
-    $serializer = new Serializer([new ObjectNormalizer()], $encoders);
-    //dd($serializer);
-    $c1 = $serializer->deserialize($data, 'App\Entity\Commentaire', 'json');
-    dd($c1);
-    $c0 = $this->em->getRepository(Commentaire::class)->find($id);
-    $c0 = $c1;
-    //dd($c0);
-    $this->em->flush();
-    $response = new Response('', Response::HTTP_OK);
-    //Allow all websites
-    $response->headers->set('Access-Control-Allow-Origin', '*');
-    // You can set the allowed methods too, if you want
-    $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
-    //dd($response);
-    return $response;
-    
+/** 
+    * @Route("/commentaire/update/{id}", name="updateC", methods={"PUT"})
+    */
 
-} 
+    public function updateC(Commentaire $event, Request $request, EntityManagerInterface $em, 
+    SerializerInterface $serializer ): Response
+    {
+        $serializer->deserialize($request->getContent(), Commentaire::class, 'json',
+            [AbstractNormalizer::OBJECT_TO_POPULATE => $event]
+        );
+
+        $em->flush();
+
+        return new JsonResponse($serializer->serialize($event, "json") ,
+        
+        JsonResponse::HTTP_NO_CONTENT, [], true );
+
+    }
+
 }

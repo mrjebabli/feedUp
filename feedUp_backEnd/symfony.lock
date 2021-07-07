@@ -263,6 +263,9 @@
     "symfony/property-access": {
         "version": "v4.4.25"
     },
+    "symfony/property-info": {
+        "version": "v4.4.25"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v4.4.25"
     },

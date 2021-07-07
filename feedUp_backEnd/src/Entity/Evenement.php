@@ -19,48 +19,56 @@ class Evenement
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $eid;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @groups ("event:read")
+     * @groups ("comment:read")
     */
     private $enom;
 
     /**
      * @ORM\Column(type="datetime")
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $edate;
 
     /**
      * @ORM\Column(type="datetime")
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $eduree;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $edetails;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $elocation;
 
     /**
      * @ORM\Column(type="integer")
      * @groups ("event:read")
+     * @groups ("comment:read")
      */
     private $enombre;
 
@@ -72,7 +80,7 @@ class Evenement
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="evenement", orphanRemoval=true)
-    
+     * 
      */
     private $commentaires;
 

@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\CommentaireRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
@@ -45,10 +49,17 @@ class Commentaire
 
     /**
      * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=false)
-     * @groups ("event:read")
+     * @ORM\JoinColumn(nullable=true)
      */  
      private $evenement;
+
+
+     public function __construct()
+     {
+         $this->evenement_id = 0 ;
+       
+     }
+  
 
     
     public function getId(): ?int
