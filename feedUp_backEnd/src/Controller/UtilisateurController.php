@@ -99,7 +99,7 @@ public function addGroupe (Request $request):Response
 public function putGroupe(
     Utilisateur $utilisateur,
     Request $request,
-    EntityManagerInterface $pr,
+    EntityManagerInterface $us,
     SerializerInterface $serializer
 ): Response
 {
@@ -107,7 +107,7 @@ public function putGroupe(
     Utilisateur::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $utilisateur]
     );
 
-    $pr->flush();
+    $us->flush();
     return new JsonResponse(
         $serializer->serialize($utilisateur, "json"),
         JsonResponse::HTTP_NO_CONTENT,
