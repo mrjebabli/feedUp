@@ -10,7 +10,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
     /**
@@ -51,7 +54,7 @@ class UtilisateurController extends AbstractController
     }
 
 
-    /**
+   /**
     * @Route("/{id}/delete", name="deleteUser", methods={"delete"})
     * @return Response
     */
@@ -68,10 +71,50 @@ class UtilisateurController extends AbstractController
        return $response;
    }
 
-    
+/**
+ * @Route("/adduser", name="adduser", methods={"post"})
+ */
 
+public function addGroupe (Request $request):Response
+{
+   $data = $request->getContent();
+   $encoders = array(new JsonEncoder());
+   $serializer = new Serializer([new ObjectNormalizer()], $encoders);
+   
+   $us = $serializer->deserialize($data, 'App\Entity\Utilisateur', 'json');
+   $em= $this->getDoctrine()->getManager();
+   $em->persist($us);
+   $em->flush();
+   $response = new Response('', Response::HTTP_CREATED);
+   //Allow all websites
+   $response->headers->set('Access-Control-Allow-Origin', '*');
+   // You can set the allowed methods too, if you want
+   $response->headers->set('Access-Control-Allow-Methods', 'POST');
+   return $response;
+}
     
+/**
+ * @Route("/updateuser/{id}", name="updateUser", methods={"put"})
+ */
+public function putGroupe(
+    Utilisateur $utilisateur,
+    Request $request,
+    EntityManagerInterface $pr,
+    SerializerInterface $serializer
+): Response
+{
+    $serializer->deserialize($request->getContent(),
+    Utilisateur::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $utilisateur]
+    );
 
+    $pr->flush();
+    return new JsonResponse(
+        $serializer->serialize($utilisateur, "json"),
+        JsonResponse::HTTP_NO_CONTENT,
+        [],
+        true
+    );
+}
     
 
 }
