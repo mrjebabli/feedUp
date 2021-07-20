@@ -20,7 +20,7 @@ class Utilisateur
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $uid;
 
@@ -82,12 +82,12 @@ class Utilisateur
         return $this->id;
     }
 
-    public function getUid(): ?int
+    public function getUid(): ?string
     {
         return $this->uid;
     }
 
-    public function setUid(int $uid): self
+    public function setUid(string $uid): self
     {
         $this->uid = $uid;
 
