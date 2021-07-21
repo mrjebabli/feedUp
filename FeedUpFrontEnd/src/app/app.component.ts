@@ -7,12 +7,23 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent  {
+export class AppComponent implements OnInit {
   title = 'FrontEnd';
 
   constructor(public authService: AuthService,
     private router: Router){}
 
+    ngOnInit () {
+      let isloggedin: string;
+      let loggedUser:string;
+      isloggedin =  String(localStorage.getItem('isloggedIn'));
+      loggedUser =  String (localStorage.getItem('loggedUser'));
+
+      if (isloggedin!="true" || !loggedUser)
+          this.router.navigate(['/login']);
+      else
+       this.authService.setLoggedUserFromLocalStorage(loggedUser);
+    }
   
     
     onLogout(){

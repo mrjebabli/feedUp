@@ -45,7 +45,7 @@ export class AuthService {
 
 
   isAdmin(): Boolean {
-    if (!this.utype) //this.roles== undefiened
+    if (!this.utype) //this.type== undefiened
       return false;
     console.log(this.utype.indexOf('ADMIN') ); 
     return (this.utype.indexOf('ADMIN') > -1);
@@ -54,10 +54,10 @@ export class AuthService {
   setLoggedUserFromLocalStorage(login: string) {
     this.loggedUser = login;
     this.isloggedIn = true;
-    this.getUserRoles(login);
+    this.getUserType(login);
   }
 
-  getUserRoles(uid: string) {
+  getUserType(uid: string) {
     this.users.forEach((curUser) => {
       if (curUser.uid == uid) {
         this.utype = curUser.utype;
