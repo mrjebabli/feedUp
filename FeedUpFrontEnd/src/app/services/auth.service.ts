@@ -8,8 +8,8 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   users: User[] = [
-    { "uid": "med", "upassword": "a123", "utype": ['USER'] },
-    { "uid": "admin", "upassword": "a123", "utype": ['ADMIN'] }
+    { "uid": "med","uprenom":"", "unom":"", "uphone":"", "uemail":"" , "upassword": "a123", "utype": ['USER'] },
+    { "uid": "admin", "uprenom":"", "unom":"", "uphone":"", "uemail":"" ,"upassword": "a123", "utype": ['ADMIN'] }
   
   ];
   apiURL: string = 'http://localhost:8081/users/login';

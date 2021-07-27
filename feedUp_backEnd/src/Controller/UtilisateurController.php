@@ -35,22 +35,36 @@ class UtilisateurController extends AbstractController
     /**
      * @Route("/getAllUsers", name="getAllUsers", methods={"GET"})
      */
-    public function getAllEvents(utilisateurRepository $repo, SerializerInterface $serializer): Response
+    public function getAllUsers(utilisateurRepository $repository ): Response
     {
-        $list=$repo->findAll();
-        //$encoders = array(new JsonEncoder());
-        //$serializer = new Serializer([new ObjectNormalizer()], $encoders);
-        //Using the annotation groups to serialize uniquement les attributs qu'on veut 
-        $data = $serializer->serialize($list, 'json');
-        $response = new Response($data, 200);
-        //content type
-        $response->headers->set('Content-Type', 'application/json');
-        //Allow all websites
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-        // You can set the allowed methods too, if you want
-        $response->headers->set('Access-Control-Allow-Methods', 'GET');
-        return $response;
-        
+        // $list=$repo->findAll();
+        // //$encoders = array(new JsonEncoder());
+        // //$serializer = new Serializer([new ObjectNormalizer()], $encoders);
+        // //Using the annotation groups to serialize uniquement les attributs qu'on veut
+        // $data = $serializer->serialize($list, 'json');
+        // $response = new Response($data, 200);
+        // //content type
+        // $response->headers->set('Content-Type', 'application/json');
+        // //Allow all websites
+        // $response->headers->set('Access-Control-Allow-Origin', '*');
+        // // You can set the allowed methods too, if you want
+        // $response->headers->set('Access-Control-Allow-Methods', 'GET');
+        // return $response;
+
+        $list = $repository->findAll();
+   $encoders = array(new JsonEncoder());
+   $serializer = new Serializer([new ObjectNormalizer()], $encoders);
+   $data = $serializer->serialize($list, 'json');
+   $response = new Response($data, 200);
+   //content type
+   $response->headers->set('Content-Type', 'application/json');
+   //Allow all websites
+   $response->headers->set('Access-Control-Allow-Origin', '*');
+   // You can set the allowed methods too, if you want
+   $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
+   return $response;
+
+
     }
 
 
@@ -65,7 +79,7 @@ class UtilisateurController extends AbstractController
        $us->remove($user);
        $us->flush();
        $response = new Response('', Response::HTTP_OK);
-       
+
        $response->headers->set('Access-Control-Allow-Origin', '*');
        $response->headers->set('Access-Control-Allow-Methods', 'DELETE');
        return $response;
@@ -80,7 +94,7 @@ public function addGroupe (Request $request):Response
    $data = $request->getContent();
    $encoders = array(new JsonEncoder());
    $serializer = new Serializer([new ObjectNormalizer()], $encoders);
-   
+
    $us = $serializer->deserialize($data, 'App\Entity\Utilisateur', 'json');
    $em= $this->getDoctrine()->getManager();
    $em->persist($us);
@@ -92,7 +106,7 @@ public function addGroupe (Request $request):Response
    $response->headers->set('Access-Control-Allow-Methods', 'POST');
    return $response;
 }
-    
+
 /**
  * @Route("/updateuser/{id}", name="updateUser", methods={"put"})
  */
@@ -115,6 +129,6 @@ public function putGroupe(
         true
     );
 }
-    
+
 
 }

@@ -1,3 +1,4 @@
+import { UserService } from './../services/user.service';
 
 
 import { User } from '../model/User.model';
@@ -13,12 +14,15 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   user!: User;
   list!: User[];
-  constructor(private authService : AuthService,public router: Router) { }
+  constructor(private authService : AuthService,public router: Router,private userService: UserService) { }
+
+  
 
   ngOnInit(): void {
     this.user = new User();
     this.list = [];
    
+    this.userService.getAllUsers().subscribe((data: User[]) => console.log(data));
 
   }
   onLoggedin()

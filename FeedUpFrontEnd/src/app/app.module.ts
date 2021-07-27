@@ -6,18 +6,29 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './users/users.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
+import {  HttpClientModule } from '@angular/common/http';
+import { UserComponent } from './user/user.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     UsersComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    AddUserComponent,
+    EditUserComponent,
+    DeleteUserComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

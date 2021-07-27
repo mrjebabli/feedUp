@@ -14,13 +14,14 @@
                     <a class="nav-link" *ngIf="authService.isAdmin()" routerLink="/users">All Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" *ngIf="authService.isAdmin()" routerLink="#">Add User</a>
+                    <a class="nav-link" routerLink="/adduser">Add User</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="authService.isAdmin()" routerLink="/edituser">Edit User</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" *ngIf="authService.isAdmin()" routerLink="#">Edit User</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" *ngIf="authService.isAdmin()" routerLink="#">Delete User</a>
+                    <a class="nav-link" *ngIf="authService.isAdmin()" routerLink="/deleteuser">Delete User</a>
                 </li>
 
 
