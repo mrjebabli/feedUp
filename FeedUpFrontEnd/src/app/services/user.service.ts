@@ -20,7 +20,7 @@ export class UserService {
     return this.http.post(this.urladd, u);
   }
   deleteUser(id: number) {
-    return this.http.delete(this.url + id+ '/delete');
+    return this.http.delete(this.url + "/" + id+ '/delete');
   }
   updateUser(id: number, u: User) {
     return this.http.put(this.url + '/updateuser/' + id, u);

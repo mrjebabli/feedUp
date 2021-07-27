@@ -1,3 +1,4 @@
+import { User } from './../model/User.model';
 import { UserService } from './../services/user.service';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -8,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
+  user: User;
+  list: User[];
 
   constructor(private authService : AuthService,private userService: UserService) { }
 
   ngOnInit(): void {
+    this.user = new User();
+    this.list = [];
+  }
+  addD() {
+    console.log(this.user)
+    this.userService
+      .deleteUser(2).subscribe()
   }
 
 }

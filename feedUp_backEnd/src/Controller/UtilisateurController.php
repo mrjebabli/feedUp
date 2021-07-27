@@ -21,37 +21,14 @@ use Symfony\Component\Serializer\SerializerInterface;
      */
 class UtilisateurController extends AbstractController
 {
-    /**
-     * @Route("/index", name="utilisateur")
-     */
-    public function index(): Response
-    {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/UtilisateurController.php',
-        ]);
-    }
+
 
     /**
      * @Route("/getAllUsers", name="getAllUsers", methods={"GET"})
      */
     public function getAllUsers(utilisateurRepository $repository ): Response
     {
-        // $list=$repo->findAll();
-        // //$encoders = array(new JsonEncoder());
-        // //$serializer = new Serializer([new ObjectNormalizer()], $encoders);
-        // //Using the annotation groups to serialize uniquement les attributs qu'on veut
-        // $data = $serializer->serialize($list, 'json');
-        // $response = new Response($data, 200);
-        // //content type
-        // $response->headers->set('Content-Type', 'application/json');
-        // //Allow all websites
-        // $response->headers->set('Access-Control-Allow-Origin', '*');
-        // // You can set the allowed methods too, if you want
-        // $response->headers->set('Access-Control-Allow-Methods', 'GET');
-        // return $response;
-
-        $list = $repository->findAll();
+    $list = $repository->findAll();
    $encoders = array(new JsonEncoder());
    $serializer = new Serializer([new ObjectNormalizer()], $encoders);
    $data = $serializer->serialize($list, 'json');
@@ -129,6 +106,24 @@ public function putGroupe(
         true
     );
 }
+
+    /**
+     * @Route("/{id}", name="chapter_getByCourses", methods={"GET"})
+     * @param ChapterRepository $repository
+     * @return Response
+     */
+    public function getChapterAction(UtilisateurRepository  $utilisateurRepository, $id, SerializerInterface $serializer): Response
+    {
+        $user=$utilisateurRepository->find($id);
+        
+        $data = $serializer->serialize($user, 'json',[
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+        $response = new Response($data, Response::HTTP_OK);
+        return $this->restService->prepareResponse($response);
+    }
 
 
 }
