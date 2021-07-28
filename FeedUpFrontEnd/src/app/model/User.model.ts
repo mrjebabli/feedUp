@@ -1,3 +1,4 @@
+import { Role } from './Role.model';
 
 export class User {
 	uid: string;
@@ -6,7 +7,7 @@ export class User {
 	uphone: string ;
 	uemail: string ;
 	upassword: string ;
-    utype:string[];	
+    utype: Role[];	
 		
 }
 

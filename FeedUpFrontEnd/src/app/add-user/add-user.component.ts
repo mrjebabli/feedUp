@@ -21,7 +21,9 @@ export class AddUserComponent implements OnInit {
   addD() {
     console.log(this.user)
     this.userService
-      .deleteUser(2).subscribe()
+    .addUser(this.user)
+    .subscribe(() => (this.list = [this.user, ...this.list]));
+    window.location.pathname = '/users';
   }
 
 }

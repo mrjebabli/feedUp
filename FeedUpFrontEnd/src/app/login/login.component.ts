@@ -14,29 +14,30 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   user!: User;
   list!: User[];
-  constructor(private authService : AuthService,public router: Router,private userService: UserService) { }
+  constructor(private authService: AuthService, public router: Router, private userService: UserService) { }
 
-  
+
 
   ngOnInit(): void {
     this.user = new User();
     this.list = [];
-   
+
     this.userService.getAllUsers().subscribe((data: User[]) => console.log(data));
 
   }
-  onLoggedin()
-  {
-    
-    console.log(this.user);
-    let isValidUser: Boolean = this.authService.SignIn(this.user);
-    console.log("valid user "+isValidUser);
-    if (isValidUser)
-    {
-      console.log("isadmin "+this.authService.isAdmin());
-      this.router.navigate(['/']);     
-    }
-      
-}
+
+
+  onLoggedin() {
+    this.authService.getUserFromDB(this.user.uid).subscribe((usr: User) => {
+      if (usr.upassword == this.user.upassword) {
+        this.authService.SignIn(usr);
+        this.router.navigate(['/adduser']);
+      }
+      else
+        console.log("error");
+    })
+   
+  }
+
 
 }

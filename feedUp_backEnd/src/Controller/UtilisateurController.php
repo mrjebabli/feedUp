@@ -38,7 +38,7 @@ class UtilisateurController extends AbstractController
    //Allow all websites
    $response->headers->set('Access-Control-Allow-Origin', '*');
    // You can set the allowed methods too, if you want
-   $response->headers->set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, PATCH, OPTIONS');
+   $response->headers->set('Access-Control-Allow-Methods',  'GET');
    return $response;
 
 
@@ -77,10 +77,11 @@ public function addGroupe (Request $request):Response
    $em->persist($us);
    $em->flush();
    $response = new Response('', Response::HTTP_CREATED);
+   $response->headers->set('Content-Type', 'application/json');
    //Allow all websites
    $response->headers->set('Access-Control-Allow-Origin', '*');
    // You can set the allowed methods too, if you want
-   $response->headers->set('Access-Control-Allow-Methods', 'POST');
+   $response->headers->set('Access-Control-Allow-Methods', '*');
    return $response;
 }
 
@@ -108,22 +109,26 @@ public function putGroupe(
 }
 
     /**
-     * @Route("/{id}", name="chapter_getByCourses", methods={"GET"})
-     * @param ChapterRepository $repository
-     * @return Response
+     * @Route("/{uid}", name="afficherRecette", methods={"get"})
      */
-    public function getChapterAction(UtilisateurRepository  $utilisateurRepository, $id, SerializerInterface $serializer): Response
-    {
-        $user=$utilisateurRepository->find($id);
+    public function showRecette($uid,utilisateurRepository $repository)  {
+        $recette=$repository->findOneBy(["uid" => $uid ]);
         
-        $data = $serializer->serialize($user, 'json',[
-            'circular_reference_handler' => function ($object) {
-                return $object->getId();
-            }
-        ]);
-        $response = new Response($data, Response::HTTP_OK);
-        return $this->restService->prepareResponse($response);
+        $encoders= array(new JsonEncoder());
+        $serializer= new Serializer([new ObjectNormalizer()],$encoders);
+        //dd($serializer);
+        $data = $serializer->serialize($recette, 'json', ['circular_reference_handler'=>function($object){
+            return $object->getId();}]
+        );
+        $response= new Response($data, 200);
+        //var_dump($data);
+        //content type
+        $response->headers->set('Content-Type', 'application/json');
+        //Allow all websites
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        // You can set the allowed methods too, if you want
+        $response->headers->set('Access-Control-Allow-Methods', 'GET');
+        return $response;
     }
-
 
 }

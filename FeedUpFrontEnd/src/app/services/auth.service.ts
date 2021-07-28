@@ -1,69 +1,83 @@
-import { User } from '../model/User.model';
+import { Role } from './../model/Role.model';
+import { User } from './../model/User.model';
+import { Observable } from 'rxjs';
+
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  users: User[] = [
-    { "uid": "med","uprenom":"", "unom":"", "uphone":"", "uemail":"" , "upassword": "a123", "utype": ['USER'] },
-    { "uid": "admin", "uprenom":"", "unom":"", "uphone":"", "uemail":"" ,"upassword": "a123", "utype": ['ADMIN'] }
-  
-  ];
-  apiURL: string = 'http://localhost:8081/users/login';
+  /* users: User[] = [
+     { "uid": "med","uprenom":"", "unom":"", "uphone":"", "uemail":"" , "upassword": "a123", "utype": ['USER'] },
+     { "uid": "admin", "uprenom":"", "unom":"", "uphone":"", "uemail":"" ,"upassword": "a123", "utype": ['ADMIN'] }
+   
+   ];*/
+
+
+  apiURL: string = 'http://127.0.0.1:8000/user';
+
   public loggedUser: string;
   public isloggedIn: Boolean = false;
-  public utype: string[];
+  public roles: Role[];
 
-  constructor(private router: Router) { }
-  SignIn(user: User): Boolean {
-    let validUser: Boolean = false;
-    this.users.forEach((curtUser) => {
-      if (user.uid === curtUser.uid && user.upassword == curtUser.upassword) {
-        validUser = true;
-        this.loggedUser = curtUser.uid;
-        this.isloggedIn = true;
-        this.utype = curtUser.utype;
+  constructor(private router: Router, private http: HttpClient) { }
 
 
-        localStorage.setItem('loggedUser', this.loggedUser);
-        localStorage.setItem('isloggedIn', String(this.isloggedIn));
-      }
-    });
+  getUserFromDB(uid: string): Observable<User> { 
+    const url = `${this.apiURL}/${uid}`;
+    
+  return this.http.get<User>(url); 
+ 
+}
 
-    return validUser;
-  }
-  logout() {
-    this.isloggedIn = false;
-    this.loggedUser = "undefined";
-    localStorage.removeItem('loggedUser');
-    localStorage.setItem('isloggedIn', String(this.isloggedIn));
-    this.router.navigate(['/login']);
-  }
+  SignIn(user:User){ 
+    this.loggedUser = user.uid; 
+    this.isloggedIn = true; 
+    this.roles = user.utype;
+    
+     localStorage.setItem('loggedUser',this.loggedUser);
+     localStorage.setItem('isloggedIn',String(this.isloggedIn));
+    }
+
+logout() {
+  this.isloggedIn = false;
+  this.loggedUser = "undefined";
+  localStorage.removeItem('loggedUser');
+  localStorage.setItem('isloggedIn', String(this.isloggedIn));
+  this.router.navigate(['/login']);
+}
+
+isAdmin():Boolean{
+
+  
+let admin: Boolean = false;
+
+  if (!this.roles) //this.roles == undefiened     
+    return false;
+  if (this.loggedUser.toUpperCase() == 'ADMIN') {
+      admin = true;
+    }
+  return admin;
+}
 
 
-  isAdmin(): Boolean {
-    if (!this.utype) //this.type== undefiened
-      return false;
-    console.log(this.utype.indexOf('ADMIN') ); 
-    return (this.utype.indexOf('ADMIN') > -1);
-  }
+setLoggedUserFromLocalStorage(login: string) {
+  this.loggedUser = login;
+  this.isloggedIn = true;
+  this.getUserType(login);
+}
 
-  setLoggedUserFromLocalStorage(login: string) {
-    this.loggedUser = login;
-    this.isloggedIn = true;
-    this.getUserType(login);
-  }
+getUserType(uid: string) {
 
-  getUserType(uid: string) {
-    this.users.forEach((curUser) => {
-      if (curUser.uid == uid) {
-        this.utype = curUser.utype;
-      }
-    });
-  }
+  this.getUserFromDB(uid).subscribe((user: User) => {
+    this.roles = user.utype;
+
+  });
+
+}
 
 
 }
