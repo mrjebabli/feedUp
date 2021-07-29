@@ -10,11 +10,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AuthService {
-  /* users: User[] = [
-     { "uid": "med","uprenom":"", "unom":"", "uphone":"", "uemail":"" , "upassword": "a123", "utype": ['USER'] },
-     { "uid": "admin", "uprenom":"", "unom":"", "uphone":"", "uemail":"" ,"upassword": "a123", "utype": ['ADMIN'] }
-   
-   ];*/
 
 
   apiURL: string = 'http://127.0.0.1:8000/user';
@@ -45,7 +40,7 @@ export class AuthService {
 
 logout() {
   this.isloggedIn = false;
-  this.loggedUser = "undefined";
+  this.loggedUser = "undefi   ned";
   localStorage.removeItem('loggedUser');
   localStorage.setItem('isloggedIn', String(this.isloggedIn));
   this.router.navigate(['/login']);

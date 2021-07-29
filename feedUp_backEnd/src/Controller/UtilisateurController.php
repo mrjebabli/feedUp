@@ -88,7 +88,7 @@ public function addGroupe (Request $request):Response
 /**
  * @Route("/updateuser/{id}", name="updateUser", methods={"put"})
  */
-public function putGroupe(
+public function putUser(
     Utilisateur $utilisateur,
     Request $request,
     EntityManagerInterface $us,
@@ -109,11 +109,33 @@ public function putGroupe(
 }
 
     /**
-     * @Route("/{uid}", name="showuser", methods={"get"})
+     * @Route("/{uid}", name="show", methods={"get"})
      */
-    public function showuser($uid,utilisateurRepository $repository)  {
+    public function show($uid,utilisateurRepository $repository)  {
         $user=$repository->findOneBy(["uid" => $uid ]);
         
+        $encoders= array(new JsonEncoder());
+        $serializer= new Serializer([new ObjectNormalizer()],$encoders);
+        //dd($serializer);
+        $data = $serializer->serialize($user, 'json', ['circular_reference_handler'=>function($object){
+            return $object->getId();}]
+        );
+        $response= new Response($data, 200);
+        //var_dump($data);
+        //content type
+        $response->headers->set('Content-Type', 'application/json');
+        //Allow all websites
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        // You can set the allowed methods too, if you want
+        $response->headers->set('Access-Control-Allow-Methods', 'GET');
+        return $response;
+    }
+
+    /**
+     * @Route("/get/{id}", name="showuser", methods={"get"})
+     */
+    public function showuser($id,utilisateurRepository $repository)  {
+        $user=$repository->find($id);
         $encoders= array(new JsonEncoder());
         $serializer= new Serializer([new ObjectNormalizer()],$encoders);
         //dd($serializer);

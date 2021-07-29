@@ -1,3 +1,4 @@
+
 <div class="container">
   <br>
   <br>
@@ -12,7 +13,7 @@
         aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.uprenom" required #f="ngModel" minlength="3">
     </div>
     <div class="alert alert-danger" *ngIf="f.invalid && f.touched ">
-      <div *ngIf="f.errors?.required">Laboratory is a required field</div>
+      <div *ngIf="f.errors?.required">First Name is a required field</div>
       <div *ngIf="f.errors?.minlength"> error: minlength is equal to 3</div>
     </div>
 
@@ -24,11 +25,11 @@
     <div class="input-group mb-3">
       <br>
       <input type="text" class="form-control" aria-label="Sizing example input" placeholder="last name"
-        aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.unom" required #i="ngModel" minlength="2">
+        aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.unom" required #ls="ngModel" minlength="2">
     </div>
-    <div class="alert alert-danger" *ngIf="i.invalid && i.touched ">
-      <div *ngIf="i.errors?.required">username is a required field</div>
-      <div *ngIf="i.errors?.minlength"> error: minlength is equal to 2</div>
+    <div class="alert alert-danger" *ngIf="ls.invalid && ls.touched ">
+      <div *ngIf="ls.errors?.required">Last Name is a required field</div>
+      <div *ngIf="ls.errors?.minlength"> error: minlength is equal to 2</div>
     </div>
   </div>
 

@@ -10,7 +10,7 @@ import { User } from '../model/User.model';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  user: User;
+  user: User;   
   reqUser:User;
   userList: User[];
   id: number;
@@ -21,7 +21,10 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.id = this.route.snapshot.params.id;
+    this.userService.getUserById(this.route.snapshot.params.id).subscribe((user:any) => {
+      console.log(user)
+      this.user = user
+    })
     
   }
   
@@ -31,7 +34,8 @@ export class EditUserComponent implements OnInit {
     this.userService
       .updateUser(this.route.snapshot.params.id, this.user)
       .subscribe();
- //   window.location.pathname = '/users';
+      window.location.pathname = '/users';
+
   }
 
 }

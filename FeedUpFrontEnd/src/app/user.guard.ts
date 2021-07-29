@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+
 import { AuthService } from './services/auth.service';
 
 @Injectable({
@@ -22,6 +22,8 @@ export class ProduitGuard implements CanActivate {
           this.router.navigate(['forbidden']);
            return false;
         }
-  }
+
+     
   
+}
 }

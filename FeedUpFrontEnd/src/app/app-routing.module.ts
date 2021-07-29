@@ -1,3 +1,4 @@
+import { AddAdminComponent } from './add-admin/add-admin.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { AddUserComponent } from './add-user/add-user.component';
@@ -12,12 +13,11 @@ const routes: Routes = [
   { path: 'login', component:LoginComponent },
   {path:  'forbidden', component: ForbiddenComponent},
   {path:  'adduser', component:AddUserComponent},
+  {path:  'addadmin', component:AddAdminComponent},
+  
   {path:  'deleteuser', component: DeleteUserComponent},
- 
-  {path:  'edituser', component:EditUserComponent,canActivate:[ProduitGuard]},
- 
-  { path: 'users', component:UsersComponent, canActivate:[ProduitGuard] }
-
+  {path:  'edituser/:id', component:EditUserComponent},
+  { path: 'users', component:UsersComponent }
 ];
 
 @NgModule({

@@ -11,6 +11,7 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import {  HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user/user.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { UserComponent } from './user/user.component';
     AddUserComponent,
     EditUserComponent,
     DeleteUserComponent,
-    UserComponent
+    UserComponent,
+    AddAdminComponent
   ],
   imports: [
     BrowserModule,

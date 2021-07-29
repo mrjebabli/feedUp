@@ -26,14 +26,12 @@ export class AppComponent implements OnInit {
           
       else
        this.authService.setLoggedUserFromLocalStorage(loggedUser);
-       this.router.navigate(['/login']);
 
     }
   
     
     onLogout(){
       this.authService.logout();
-      window.location.pathname = '/login';
     }
 
 }
