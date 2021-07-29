@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
     this.userService
     .addUser(this.user)
     .subscribe(() => (this.list = [this.user, ...this.list]));
-    window.location.pathname = '/users';
+    window.location.pathname = '/login';
   }
 
 }

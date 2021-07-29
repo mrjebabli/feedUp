@@ -40,6 +40,7 @@ export class AuthService {
     
      localStorage.setItem('loggedUser',this.loggedUser);
      localStorage.setItem('isloggedIn',String(this.isloggedIn));
+     this.router.navigate(['/users']);
     }
 
 logout() {

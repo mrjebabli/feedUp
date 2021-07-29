@@ -14,9 +14,9 @@ const routes: Routes = [
   {path:  'adduser', component:AddUserComponent},
   {path:  'deleteuser', component: DeleteUserComponent},
  
-  {path:  'edituser', component:EditUserComponent},
+  {path:  'edituser', component:EditUserComponent,canActivate:[ProduitGuard]},
  
-  { path: 'users', component:UsersComponent , canActivate:[ProduitGuard]}
+  { path: 'users', component:UsersComponent, canActivate:[ProduitGuard] }
 
 ];
 

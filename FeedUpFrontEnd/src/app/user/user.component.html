@@ -11,6 +11,23 @@
         <li class="list-group-item">Role: {{  user.utype}}</li>
       </ul>
     </div>
-    <button type="button" class="btn btn-light">EDIT USER</button>
+    
+
+      <div class="card-footer">
+        <div class="col md-6">
+          <button
+            class="btn btn-primary"
+            style="float: left"
+            routerLink="/edituser"
+          >
+            UPDATE
+          </button>
+          <button
+            class="btn btn-outline-danger"
+            (click)="SuppDrug(user.id)"
+          >
+            Delete
+          </button>
+        </div>
 </div>
-</div>
+

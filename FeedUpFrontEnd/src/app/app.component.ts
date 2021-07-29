@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'FrontEnd';
-
+ 
   constructor(public authService: AuthService,
     private router: Router){}
 
@@ -18,11 +18,16 @@ export class AppComponent implements OnInit {
       let loggedUser:string;
       isloggedin =  String(localStorage.getItem('isloggedIn'));
       loggedUser =  String (localStorage.getItem('loggedUser'));
+      loggin :Boolean;
+      
 
       if (isloggedin!="true" || !loggedUser)
           this.router.navigate(['/login']);
+          
       else
        this.authService.setLoggedUserFromLocalStorage(loggedUser);
+       this.router.navigate(['/login']);
+
     }
   
     

@@ -109,15 +109,15 @@ public function putGroupe(
 }
 
     /**
-     * @Route("/{uid}", name="afficherRecette", methods={"get"})
+     * @Route("/{uid}", name="showuser", methods={"get"})
      */
-    public function showRecette($uid,utilisateurRepository $repository)  {
-        $recette=$repository->findOneBy(["uid" => $uid ]);
+    public function showuser($uid,utilisateurRepository $repository)  {
+        $user=$repository->findOneBy(["uid" => $uid ]);
         
         $encoders= array(new JsonEncoder());
         $serializer= new Serializer([new ObjectNormalizer()],$encoders);
         //dd($serializer);
-        $data = $serializer->serialize($recette, 'json', ['circular_reference_handler'=>function($object){
+        $data = $serializer->serialize($user, 'json', ['circular_reference_handler'=>function($object){
             return $object->getId();}]
         );
         $response= new Response($data, 200);

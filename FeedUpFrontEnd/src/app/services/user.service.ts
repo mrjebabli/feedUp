@@ -22,11 +22,15 @@ export class UserService {
   deleteUser(id: number) {
     return this.http.delete(this.url + "/" + id+ '/delete');
   }
-  updateUser(id: number, u: User) {
-    return this.http.put(this.url + '/updateuser/' + id, u);
+  updateUser(uid: number, u: User) {
+    console.log(this.url + '/' + uid)
+    return this.http.put(this.url + '/' + uid, u);
   }
-  getUser(id: number) {
-    return this.http.get(this.url + '/' + id);
+
+ 
+
+  getUser(uid: number) {
+    return this.http.get(this.url + '/' + uid);
   }
 
 }

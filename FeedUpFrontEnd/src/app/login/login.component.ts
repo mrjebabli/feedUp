@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./signin.css']
 })
 export class LoginComponent implements OnInit {
   user!: User;
@@ -31,13 +32,16 @@ export class LoginComponent implements OnInit {
     this.authService.getUserFromDB(this.user.uid).subscribe((usr: User) => {
       if (usr.upassword == this.user.upassword) {
         this.authService.SignIn(usr);
-        this.router.navigate(['/adduser']);
+        this.router.navigate(['/users']);
       }
       else
         console.log("error");
     })
-   
+    
   }
 
-
+  join(){
+    this.router.navigate(['/adduser']);
+  }
+ 
 }

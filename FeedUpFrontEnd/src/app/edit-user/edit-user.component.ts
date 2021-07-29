@@ -11,23 +11,27 @@ import { User } from '../model/User.model';
 })
 export class EditUserComponent implements OnInit {
   user: User;
+  reqUser:User;
   userList: User[];
   id: number;
-  requestedUser: User;
+
 
 
   constructor(private authService : AuthService,private userService: UserService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+   
+    this.id = this.route.snapshot.params.id;
     
   }
+  
 
   updateUser() {
     console.log(this.user);
     this.userService
       .updateUser(this.route.snapshot.params.id, this.user)
       .subscribe();
-    window.location.pathname = '/users';
+ //   window.location.pathname = '/users';
   }
 
 }
