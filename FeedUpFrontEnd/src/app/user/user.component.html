@@ -18,14 +18,15 @@
       <div class="card-footer">
         <div class="col md-6">
           <button
-            class="btn btn-primary"
+            class="btn btn-outline-primary"
             style="float: left"
             routerLink="/edituser/{{user.id}}"
           >
-            UPDATE
+            Update
           </button>
           <button
-            class="btn btn-outline-danger"
+            class="btn btn-outline-danger"           style="float: right"
+
             (click)="deleteuser(user.id)"
           >
             Delete
