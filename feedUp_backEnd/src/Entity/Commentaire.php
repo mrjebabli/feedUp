@@ -19,44 +19,24 @@ class Commentaire
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @groups ("comment:read")
-     * @groups ("event:read")
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @groups ("comment:read")
-     * @groups ("event:read")
-     */
-    private $cid;
+  
 
     /**
-     * @ORM\Column(type="datetime")
-     * @groups ("comment:read")
-     * @groups ("event:read")
+     * @ORM\Column(type="string", length=255)
      */
     private $cDatePublication;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups ("comment:read")
-     * @groups ("event:read")
      */
     private $cContenu;
 
 
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=true)
-     */  
-     private $evenement;
-
-
      public function __construct()
      {
-         $this->evenement_id = 0 ;
        
      }
   
@@ -67,24 +47,14 @@ class Commentaire
         return $this->id;
     }
 
-    public function getCid(): ?int
-    {
-        return $this->cid;
-    }
 
-    public function setCid(int $cid): self
-    {
-        $this->cid = $cid;
 
-        return $this;
-    }
-
-    public function getCDatePublication(): ?\DateTimeInterface
+    public function getCDatePublication(): ?string
     {
         return $this->cDatePublication;
     }
 
-    public function setCDatePublication(\DateTimeInterface $cDatePublication): self
+    public function setCDatePublication(string $cDatePublication): self
     {
         $this->cDatePublication = $cDatePublication;
 
@@ -103,17 +73,6 @@ class Commentaire
         return $this;
     }
 
-    public function getEvenement(): ?Evenement
-    {
-        return $this->evenement;
-    }
-
-    public function setEvenement(?Evenement $evenement): self
-    {
-        $this->evenement = $evenement;
-
-        return $this;
-    }
-
+    
     
 }

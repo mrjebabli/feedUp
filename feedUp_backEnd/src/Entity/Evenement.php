@@ -18,95 +18,48 @@ class Evenement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @groups ("event:read")
-     * @groups ("comment:read")
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @groups ("event:read")
-     * @groups ("comment:read")
-     */
-    private $eid;
+    
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups ("event:read")
-     * @groups ("comment:read")
     */
     private $enom;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @groups ("event:read")
-     * @groups ("comment:read")
+     * @ORM\Column(type="string", length=255)
      */
     private $edate;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @groups ("event:read")
-     * @groups ("comment:read")
+     * @ORM\Column(type="string", length=255)
      */
     private $eduree;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups ("event:read")
-     * @groups ("comment:read")
      */
     private $edetails;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @groups ("event:read")
-     * @groups ("comment:read")
      */
     private $elocation;
 
     /**
      * @ORM\Column(type="integer")
-     * @groups ("event:read")
-     * @groups ("comment:read")
      */
     private $enombre;
 
-    
-    /**
-     * @ORM\ManyToMany(targetEntity=Utilisateur::class, mappedBy="relation")
-     */
-    private $utilisateurs;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="evenement", orphanRemoval=true)
-     * 
-     */
-    private $commentaires;
-
-    public function __construct()
-    {
-        $this->utilisateurs = new ArrayCollection();
-        $this->commentaires = new ArrayCollection();
-        $this->edate=new \DateTime();
-    }
- 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEid(): ?int
-    {
-        return $this->eid;
-    }
-
-    public function setEid(int $eid): self
-    {
-        $this->eid = $eid;
-
-        return $this;
-    }
+   
 
     public function getEnom(): ?string
     {
@@ -120,24 +73,25 @@ class Evenement
         return $this;
     }
 
-    public function getEdate(): ?\Datetime
+    public function getEdate(): ?string
     {
         return $this->edate;
     }
 
-    public function setEdate(\Datetime  $edate): self
+    public function setEdate(string  $edate): self
     {
         $this->edate = $edate;
 
         return $this;
     }
 
-    public function getEduree(): ?\Datetime
+
+    public function getEduree(): ?string
     {
         return $this->eduree;
     }
 
-    public function setEduree(\Datetime $eduree): self
+    public function setEduree(string $eduree): self
     {
         $this->eduree = $eduree;
 
@@ -180,62 +134,5 @@ class Evenement
         return $this;
     }
 
-    /**
-     * @return Collection|Utilisateur[]
-     */
-    public function getUtilisateurs(): Collection
-    {
-        return $this->utilisateurs;
-    }
-
-    public function addUtilisateur(Utilisateur $utilisateur): self
-    {
-        if (!$this->utilisateurs->contains($utilisateur)) {
-            $this->utilisateurs[] = $utilisateur;
-            $utilisateur->addRelation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUtilisateur(Utilisateur $utilisateur): self
-    {
-        if ($this->utilisateurs->removeElement($utilisateur)) {
-            $utilisateur->removeRelation($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commentaire[]
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
-
-    public function addCommentaire(Commentaire $commentaire): self
-    {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setEvenement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaire $commentaire): self
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getEvenement() === $this) {
-                $commentaire->setEvenement(null);
-            }
-        }
-
-        return $this;
-    }
-
-  
+     
 }

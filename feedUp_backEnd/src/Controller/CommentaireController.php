@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use DateTime;
 use App\Entity\Commentaire;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CommentaireRepository;
@@ -36,7 +35,7 @@ class CommentaireController extends AbstractController
        //permet a serializer l'object extracter de BD uniquement l'atribut evenement pour eliminer la criculisation
        //$encoders = array(new JsonEncoder());
        //$serializer = new Serializer([new ObjectNormalizer()], $encoders);
-        $data = $serializer->serialize($list, 'json', ['groups'=>'comment:read']);
+        $data = $serializer->serialize($list, 'json');
         $response = new Response($data, 200);
         //content type
         $response->headers->set('Content-Type', 'application/json');
@@ -57,11 +56,9 @@ class CommentaireController extends AbstractController
        
         $data=$req->getContent();
         $comment = $serializer->deserialize($data, 'App\Entity\Commentaire', 'json');
-        $comment->setCDatePublication(new DateTime());
         $em= $this->getDoctrine()->getManager();
         $em->persist($comment);
         $em->flush();
-        dd($comment);
         $response = new Response('', Response::HTTP_CREATED);
         //Allow all websites
         $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -83,7 +80,6 @@ class CommentaireController extends AbstractController
        $em->remove($comment);
        $em->flush();
        $response = new Response('', Response::HTTP_OK);
-       dd($response);
        //Allow all websites
        $response->headers->set('Access-Control-Allow-Origin', '*');
        // You can set the allowed methods too, if you want

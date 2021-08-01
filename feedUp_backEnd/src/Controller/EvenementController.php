@@ -4,7 +4,6 @@ namespace App\Controller;
 use Symfony\Component\PropertyInfo\PropertyTypeExtractorInterface;
 use App\Entity\Evenement;
 use App\Repository\EvenementRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,10 +31,8 @@ class EvenementController extends AbstractController
     public function getAllEvents(EvenementRepository $repo, SerializerInterface $serializer): Response
     {
         $list=$repo->findAll();
-        //$encoders = array(new JsonEncoder());
-        //$serializer = new Serializer([new ObjectNormalizer()], $encoders);
-        //Using the annotation groups to serialize uniquement les attributs qu'on veut 
-        $data = $serializer->serialize($list, 'json',['groups'=>'event:read']);
+     
+        $data = $serializer->serialize($list, 'json');
         $response = new Response($data, 200);
         //content type
         $response->headers->set('Content-Type', 'application/json');
@@ -55,8 +52,6 @@ class EvenementController extends AbstractController
        
         $data=$req->getContent();
         $event = $serializer->deserialize($data, 'App\Entity\Evenement', 'json');
-        $event->setEdate(new DateTime());
-        $event->setEduree(new DateTime());
         $em= $this->getDoctrine()->getManager();
         $em->persist($event);
         $em->flush();
@@ -89,23 +84,53 @@ class EvenementController extends AbstractController
    }
 
    
+
+     
+
    /** 
     * @Route("/evenement/update/{id}", name="editEvent", methods={"PUT"})
     */
+    public function editEvent(
+    Evenement $evenement,
+    Request $request,
+    EntityManagerInterface $us,
+    SerializerInterface $serializer
+): Response
+{
+    $serializer->deserialize($request->getContent(),
+    Evenement::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $evenement]
+    );
 
-    public function editEvent(Evenement $event, Request $request, EntityManagerInterface $em, 
-    SerializerInterface $serializer ): Response
-    {
-        $serializer->deserialize($request->getContent(), Evenement::class, 'json',
-            [AbstractNormalizer::OBJECT_TO_POPULATE => $event]
+    $us->flush();
+    return new JsonResponse(
+        $serializer->serialize($evenement, "json"),
+        JsonResponse::HTTP_NO_CONTENT,
+        [],
+        true
+    );
+}
+
+
+    /**
+     * @Route("/getEvent/{id}", name="showEvent", methods={"get"})
+     */
+    public function getEvent($id,EvenementRepository $repository)  {
+        $event=$repository->find($id);
+        $encoders= array(new JsonEncoder());
+        $serializer= new Serializer([new ObjectNormalizer()],$encoders);
+        //dd($serializer);
+        $data = $serializer->serialize($event, 'json', ['circular_reference_handler'=>function($object){
+            return $object->getId();}]
         );
-
-        $em->flush();
-
-        return new JsonResponse($serializer->serialize($event, "json") ,
-        
-        JsonResponse::HTTP_NO_CONTENT, [], true );
-
+        $response= new Response($data, 200);
+        //var_dump($data);
+        //content type
+        $response->headers->set('Content-Type', 'application/json');
+        //Allow all websites
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        // You can set the allowed methods too, if you want
+        $response->headers->set('Access-Control-Allow-Methods', 'GET');
+        return $response;
     }
 
    
