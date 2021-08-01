@@ -51,4 +51,10 @@ class Kernel extends BaseKernel
         $routes->import($confDir.'/{routes}/*'.self::CONFIG_EXTS, '/', 'glob');
         $routes->import($confDir.'/{routes}'.self::CONFIG_EXTS, '/', 'glob');
     }
+
+    public function __construct($environment, $debug)
+    {
+        date_default_timezone_set( 'Africa/Tunis' );
+        parent::__construct($environment, $debug);
+    }
 }

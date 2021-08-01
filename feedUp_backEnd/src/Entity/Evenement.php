@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Evenement
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,23 +21,20 @@ class Evenement
      */
     private $id;
 
+    
+
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $eid;
+     * @ORM\Column(type="string", length=255)
+    */
+    private $enom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $enom;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
     private $edate;
 
     /**
-     * @ORM\Column(type="dateinterval")
+     * @ORM\Column(type="string", length=255)
      */
     private $eduree;
 
@@ -54,43 +53,13 @@ class Evenement
      */
     private $enombre;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Utilisateur::class, mappedBy="relation")
-     */
-    private $utilisateurs;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="evenement", orphanRemoval=true)
-     */
-    private $commentaires;
-
-    public function __construct()
-    {
-        $this->utilisateurs = new ArrayCollection();
-        $this->commentaires = new ArrayCollection();
-    }
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-   
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEid(): ?int
-    {
-        return $this->eid;
-    }
-
-    public function setEid(int $eid): self
-    {
-        $this->eid = $eid;
-
-        return $this;
-    }
+   
 
     public function getEnom(): ?string
     {
@@ -104,24 +73,25 @@ class Evenement
         return $this;
     }
 
-    public function getEdate(): ?\DateTimeInterface
+    public function getEdate(): ?string
     {
         return $this->edate;
     }
 
-    public function setEdate(\DateTimeInterface $edate): self
+    public function setEdate(string  $edate): self
     {
         $this->edate = $edate;
 
         return $this;
     }
 
-    public function getEduree(): ?\DateInterval
+
+    public function getEduree(): ?string
     {
         return $this->eduree;
     }
 
-    public function setEduree(\DateInterval $eduree): self
+    public function setEduree(string $eduree): self
     {
         $this->eduree = $eduree;
 
@@ -164,62 +134,5 @@ class Evenement
         return $this;
     }
 
-    /**
-     * @return Collection|Utilisateur[]
-     */
-    public function getUtilisateurs(): Collection
-    {
-        return $this->utilisateurs;
-    }
-
-    public function addUtilisateur(Utilisateur $utilisateur): self
-    {
-        if (!$this->utilisateurs->contains($utilisateur)) {
-            $this->utilisateurs[] = $utilisateur;
-            $utilisateur->addRelation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUtilisateur(Utilisateur $utilisateur): self
-    {
-        if ($this->utilisateurs->removeElement($utilisateur)) {
-            $utilisateur->removeRelation($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Commentaire[]
-     */
-    public function getCommentaires(): Collection
-    {
-        return $this->commentaires;
-    }
-
-    public function addCommentaire(Commentaire $commentaire): self
-    {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires[] = $commentaire;
-            $commentaire->setEvenement($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommentaire(Commentaire $commentaire): self
-    {
-        if ($this->commentaires->removeElement($commentaire)) {
-            // set the owning side to null (unless already changed)
-            if ($commentaire->getEvenement() === $this) {
-                $commentaire->setEvenement(null);
-            }
-        }
-
-        return $this;
-    }
-
-  
+     
 }

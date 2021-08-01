@@ -2,8 +2,13 @@
 
 namespace App\Entity;
 
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\CommentaireRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+
 
 /**
  * @ORM\Entity(repositoryClass=CommentaireRepository::class)
@@ -17,13 +22,10 @@ class Commentaire
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $cid;
+  
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
      */
     private $cDatePublication;
 
@@ -32,11 +34,12 @@ class Commentaire
      */
     private $cContenu;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Evenement::class, inversedBy="commentaires")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $evenement;
+
+     public function __construct()
+     {
+       
+     }
+  
 
     
     public function getId(): ?int
@@ -44,24 +47,14 @@ class Commentaire
         return $this->id;
     }
 
-    public function getCid(): ?int
-    {
-        return $this->cid;
-    }
 
-    public function setCid(int $cid): self
-    {
-        $this->cid = $cid;
 
-        return $this;
-    }
-
-    public function getCDatePublication(): ?\DateTimeInterface
+    public function getCDatePublication(): ?string
     {
         return $this->cDatePublication;
     }
 
-    public function setCDatePublication(\DateTimeInterface $cDatePublication): self
+    public function setCDatePublication(string $cDatePublication): self
     {
         $this->cDatePublication = $cDatePublication;
 
@@ -80,17 +73,6 @@ class Commentaire
         return $this;
     }
 
-    public function getEvenement(): ?Evenement
-    {
-        return $this->evenement;
-    }
-
-    public function setEvenement(?Evenement $evenement): self
-    {
-        $this->evenement = $evenement;
-
-        return $this;
-    }
-
+    
     
 }
