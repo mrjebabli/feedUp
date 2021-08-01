@@ -1,0 +1,87 @@
+<div class="container">
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <div class="form-group">
+  
+      <div class="input-group mb-3">
+        <br>
+        <input type="text" class="form-control" aria-label="Sizing example input" placeholder="First Name"
+          aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.uprenom" required #f="ngModel" minlength="3">
+      </div>
+      <div class="alert alert-danger" *ngIf="f.invalid && f.touched ">
+        <div *ngIf="f.errors?.required">First Name is a required field</div>
+        <div *ngIf="f.errors?.minlength"> error: minlength is equal to 3</div>
+      </div>
+  
+  
+  
+  
+  
+  
+      <div class="input-group mb-3">
+        <br>
+        <input type="text" class="form-control" aria-label="Sizing example input" placeholder="last name"
+          aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.unom" required #ls="ngModel" minlength="2">
+      </div>
+      <div class="alert alert-danger" *ngIf="ls.invalid && ls.touched ">
+        <div *ngIf="ls.errors?.required">Last Name is a required field</div>
+        <div *ngIf="ls.errors?.minlength"> error: minlength is equal to 2</div>
+      </div>
+    </div>
+  
+    <div class="input-group mb-3">
+      <br>
+      <input type="text" class="form-control" aria-label="Sizing example input" placeholder="username"
+        aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.uid" required #i="ngModel" minlength="2">
+    </div>
+    <div class="alert alert-danger" *ngIf="i.invalid && i.touched ">
+      <div *ngIf="i.errors?.required">username is a required field</div>
+      <div *ngIf="i.errors?.minlength"> error: minlength is equal to 2</div>
+    </div>
+   <div class="input-group mb-3">
+      <input type="text" class="form-control" aria-label="Sizing example input" placeholder="Email address"
+        aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.uemail" required #e="ngModel" minlength="3">
+    </div>
+    <div class="alert alert-danger" *ngIf="e.invalid && e.touched "> Email address is a required field
+    </div>
+  
+    <div class="input-group mb-3">
+      <input type="number" class="form-control" aria-label="Sizing example input" placeholder="Phone Number"
+        aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.uphone" >
+    </div>
+  
+  
+    <div class="input-group mb-3">
+      <input type="password" class="form-control" aria-label="Sizing example input" placeholder="Password"
+        aria-describedby="inputGroup-sizing-default" [(ngModel)]="user.upassword" required #pw="ngModel" minlength="3">
+    </div>
+    <br>
+    <div class="alert alert-danger" *ngIf="pw.invalid && pw.touched ">
+      <div *ngIf="pw.errors?.required">Password address is a required field</div>
+      <div *ngIf="pw.errors?.minlength">error: minlength is equal to 3/div>
+      </div>
+  
+      
+    </div>
+      
+    <div class="form-group">
+         <label for="exampleFormControlSelect1">Role</label>
+         <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="user.utype">
+           <option>USER</option>
+      <option>ADMIN</option>
+       
+       </select>
+    
+      </div>
+      <br>
+      <br>
+      <button type="button" class="btn btn-primary btn-lg btn-block" (click)="addD()"
+        [disabled]=" i.invalid && pw.invalid">
+        Add User</button>
+  
+        
+<br>
+<br>

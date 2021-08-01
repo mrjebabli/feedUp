@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Feed Up </title>
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    
+    <link href="./signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+<main class="form-signin">
+  <form>
+    <img class="mb-4" src="../../assets/FeedUP.png" alt="" width="225" height="225">
+    <h1 class="h3 mb-3 fw-normal">Please Sign In</h1>
+
+    <div class="form-floating">
+        <input type="text" name="uid" class="form-control" [(ngModel)]="user.uid"
+        required #i="ngModel" minlength="3" >
+      <label for="floatingInput">User Name</label>
+  
+      <div>
+        <br>
+        
+      </div>
+    <div class="alert alert-warning" *ngIf="i.invalid && i.touched ">
+      <div *ngIf="i.errors?.required">user name is a required field</div>
+      <div *ngIf="i.errors?.minlength"> username: minlength is equal to 5</div>
+    </div>
+  
+    </div>
+    <div class="form-floating">
+        <input type="password" name="upassword" class="form-control" [(ngModel)]="user.upassword"
+        required #p="ngModel" minlength="3">
+      <label for="floatingPassword">Password</label>
+      <div class="alert alert-warning" *ngIf="p.invalid && p.touched ">
+        <div *ngIf="p.errors?.required">Please enter your password</div>
+        <div *ngIf="p.errors?.minlength"> username: minlength is equal to 3</div>
+      </div>
+    </div>
+
+    <div>
+        <br>
+        
+      </div>
+    
+    <button type="button" class="btn btn-outline-primary" type="button" (click)="onLoggedin()"
+    [disabled]=" p.invalid && i.invalid" >Sign in</button>
+
+   
+    <p class="mt-5 mb-3 text-muted"> New to FeedUp ?</p>
+    <button type="button" class="btn btn-outline-success" type="button" (click)="join()" > Join now</button>
+
+    <p class="mt-5 mb-3 text-muted">&copy; OnePiece 2021</p>
+  </form>
+</main>
+
+    
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

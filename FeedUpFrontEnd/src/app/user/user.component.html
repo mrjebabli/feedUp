@@ -1,0 +1,36 @@
+
+<div class="container">
+   <div class="card" style="width: 18rem">
+    <div class="card-body">
+    <ul class="list-group">
+        <li class="list-group-item active">UserName: {{  user.uid}}</li>
+        <li class="list-group-item">Last Name: {{  user.uprenom}}</li>
+        <li class="list-group-item">First Name: {{  user.unom}}</li>
+        <li class="list-group-item">E Mail: {{  user.uemail}}</li>
+        <li class="list-group-item">Phone Number : {{  user.uphone}}</li>
+       
+        <li class="list-group-item">upassword: {{  user.upassword}}</li>
+        <li class="list-group-item">Role: {{  user.utype}}</li>
+      </ul>
+    </div>
+    
+
+      <div class="card-footer">
+        <div class="col md-6">
+          <button
+            class="btn btn-outline-primary"
+            style="float: left"
+            routerLink="/edituser/{{user.id}}"
+          >
+            Update
+          </button>
+          <button
+            class="btn btn-outline-danger"           style="float: right"
+
+            (click)="deleteuser(user.id)"
+          >
+            Delete
+          </button>
+        </div>
+   
+</div>
