@@ -11,6 +11,7 @@ export class UserService {
   urladd='http://127.0.0.1:8000/user/adduser'
   url=' http://127.0.0.1:8000/user/updateuser'
   urlId=' http://127.0.0.1:8000/user/get'
+  urlDe='http://127.0.0.1:8000/user'
   
   constructor(private http: HttpClient) {}
 
@@ -21,7 +22,7 @@ export class UserService {
     return this.http.post(this.urladd, u);
   }
   deleteUser(id: number) {
-    return this.http.delete(this.url + "/" + id + '/delete');
+    return this.http.delete(this.urlDe + "/" + id + '/delete');
   }
   updateUser(uid: number, u: User) {
     console.log(this.url + '/' + uid)

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { UserService } from './../services/user.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -13,17 +14,22 @@ export class UserComponent implements OnInit {
   userList: User[];
  
 
-  constructor(private authServ : AuthService,private usSEr: UserService) { }
+  constructor(private authServ : AuthService,private usSEr: UserService,public router:Router) { }
 
   ngOnInit(): void {
   }
 
-  SuppDrug(id:number) {
-    this.usSEr.deleteUser(id).subscribe(() => {
-      this.userList = this.userList.filter((i) => i.id != id);
-    });
-    console.log('this id is ' + id);
-    window.location.pathname = '/users';
-  }
+ 
+  deleteuser(id : any){
 
+    this.usSEr.deleteUser(id).subscribe(() => {
+
+      this.userList = this.userList.filter(e => e.id !== id );
+      this.router.navigate(['/user']);
+
+      window.location.reload();
+
+    })
+
+}
 }
