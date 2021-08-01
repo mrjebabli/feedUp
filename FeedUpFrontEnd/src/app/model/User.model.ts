@@ -5,7 +5,7 @@ export class User {
 	uid: string;
 	uprenom: string ;
 	unom: string ;
-	uphone: string ;
+	uphone: number ;
 	uemail: string ;
 	upassword: string ;
     utype: Role[];	
